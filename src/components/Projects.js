@@ -1,10 +1,12 @@
 import React from 'react';
 import { ExternalLink, FileText, Users, Calendar } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const Projects = () => {
   const projects = [
     {
       id: 1,
+      slug: "promoting-review-production",
       title: "Promoting Review Production",
       description: "To tackle the pain point where over 90% of reviews are text-free (thus reducing the consumption value of location detail pages), build a link of user notes → AI extraction → review base words on the AI platform, converting user notes into raw materials for review production. ",
       category: "Product Strategy",
@@ -110,80 +112,83 @@ const Projects = () => {
         {/* Projects Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {projects.map((project) => (
-            <div key={project.id} className="card group hover:scale-105 transition-transform duration-300">
-              {/* Project Image */}
-              <div className="relative mb-4 overflow-hidden rounded-lg">
-                <img
-                  src={project.image}
-                  alt={project.title}
-                  className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-300"
-                />
-                <div className="absolute top-3 left-3">
-                  <span className="px-2 py-1 bg-white/90 text-secondary-800 text-xs font-medium rounded">
-                    {project.category}
-                  </span>
-                </div>
-              </div>
-
-              {/* Project Info */}
-              <div className="space-y-3">
-                <h3 className="text-lg font-semibold text-secondary-900 group-hover:text-primary-600 transition-colors">
-                  {project.title}
-                </h3>
-                
-                <p className="text-secondary-600 text-sm leading-relaxed">
-                  {project.description}
-                </p>
-
-                {/* Project Stats */}
-                <div className="flex items-center gap-4 text-xs text-secondary-500">
-                  <div className="flex items-center gap-1">
-                    <Calendar size={14} />
-                    {project.duration}
-                  </div>
-                  <div className="flex items-center gap-1">
-                    <Users size={14} />
-                    {project.team}
+            <Link key={project.id} to={`/projects/${project.slug}`} style={{ textDecoration: 'none' }}>
+              <div className="card group hover:scale-105 transition-transform duration-300">
+                {/* Project Image */}
+                <div className="relative mb-4 overflow-hidden rounded-lg">
+                  <img
+                    src={project.image}
+                    alt={project.title}
+                    className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-300"
+                  />
+                  <div className="absolute top-3 left-3">
+                    <span className="px-2 py-1 bg-white/90 text-secondary-800 text-xs font-medium rounded">
+                      {project.category}
+                    </span>
                   </div>
                 </div>
 
-                {/* Impact */}
-                <div className="bg-primary-50 text-primary-700 px-3 py-2 rounded-lg">
-                  <span className="text-sm font-medium">{project.impact}</span>
-                </div>
+                {/* Project Info */}
+                <div className="space-y-3">
+                  <h3 className="text-lg font-semibold text-secondary-900 group-hover:text-primary-600 transition-colors">
+                    {project.title}
+                  </h3>
+                  
+                  <p className="text-secondary-600 text-sm leading-relaxed">
+                    {project.description}
+                  </p>
 
-                {/* Skills */}
-                <div className="flex flex-wrap gap-1">
-                  {project.skills.slice(0, 3).map((skill, idx) => (
-                    <span
-                      key={idx}
-                      className="px-2 py-1 bg-secondary-100 text-secondary-700 text-xs rounded"
-                    >
-                      {skill}
-                    </span>
-                  ))}
-                  {project.skills.length > 3 && (
-                    <span className="px-2 py-1 bg-secondary-100 text-secondary-700 text-xs rounded">
-                      +{project.skills.length - 3} more
-                    </span>
-                  )}
-                </div>
+                  {/* Project Stats */}
+                  <div className="flex items-center gap-4 text-xs text-secondary-500">
+                    <div className="flex items-center gap-1">
+                      <Calendar size={14} />
+                      {project.duration}
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <Users size={14} />
+                      {project.team}
+                    </div>
+                  </div>
 
-                {/* Links */}
-                <div className="flex gap-2 pt-2 border-t border-secondary-100">
-                  {project.links.map((link, idx) => (
-                    <a
-                      key={idx}
-                      href={link.url}
-                      className="flex items-center gap-1 text-sm text-primary-600 hover:text-primary-700 transition-colors"
-                    >
-                      <link.icon size={14} />
-                      {link.name}
-                    </a>
-                  ))}
+                  {/* Impact */}
+                  <div className="bg-primary-50 text-primary-700 px-3 py-2 rounded-lg">
+                    <span className="text-sm font-medium">{project.impact}</span>
+                  </div>
+
+                  {/* Skills */}
+                  <div className="flex flex-wrap gap-1">
+                    {project.skills.slice(0, 3).map((skill, idx) => (
+                      <span
+                        key={idx}
+                        className="px-2 py-1 bg-secondary-100 text-secondary-700 text-xs rounded"
+                      >
+                        {skill}
+                      </span>
+                    ))}
+                    {project.skills.length > 3 && (
+                      <span className="px-2 py-1 bg-secondary-100 text-secondary-700 text-xs rounded">
+                        +{project.skills.length - 3} more
+                      </span>
+                    )}
+                  </div>
+
+                  {/* Links */}
+                  <div className="flex gap-2 pt-2 border-t border-secondary-100">
+                    {project.links.map((link, idx) => (
+                      <a
+                        key={idx}
+                        href={link.url}
+                        className="flex items-center gap-1 text-sm text-primary-600 hover:text-primary-700 transition-colors"
+                        onClick={e => e.stopPropagation()}
+                      >
+                        <link.icon size={14} />
+                        {link.name}
+                      </a>
+                    ))}
+                  </div>
                 </div>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
 
